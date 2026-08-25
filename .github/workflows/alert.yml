@@ -1,0 +1,27 @@
+name: Delta Crypto Volume Alert
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Har 5 minute ma automatic run thase
+  workflow_dispatch:        # Manual run button mate
+
+jobs:
+  run-scanner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Alert Bot
+        run: |
+          python bot.py
+
